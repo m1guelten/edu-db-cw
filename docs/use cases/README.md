@@ -59,6 +59,57 @@ USER.EDIT_RQST ..> USER_3 :extends
 
 @enduml
 
+## Схеми використання для редактора
+
+
+@startuml
+actor "Editor" as Editor
+
+usecase "<b>EDITOR</b>\nДії редактора" as EDITOR #91FF5B
+
+Editor -l-> EDITOR
+
+usecase "<b>EDITOR.TXT_ANNOTATION_CHNG</b>\nРедагування розмітки даних" as EDITOR.TXT_ANNOTATION_CHNG
+EDITOR.TXT_ANNOTATION_CHNG ..> EDITOR :extends
+
+@enduml
+
+## Схеми використання для адміністратора
+
+@startuml
+actor "Admin" as Admin
+
+usecase "<b>ADMIN_1</b>\nДефолтні дії адміністратора" as ADMIN_1 #91FF5B
+usecase "<b>ADMIN_2</b>\nДії з розміткою даних" as ADMIN_2 #91FF5B
+usecase "<b>ADMIN_3</b>\nПереглядати зміни" as ADMIN_3 #91FF5B
+
+Admin -l-> ADMIN_3
+Admin -r-> ADMIN_2
+Admin -d-> ADMIN_1
+
+usecase "<b>ADM.FILE_UPLOAD</b>\nЗавантажити текстовий \nфайл в систему" as ADM.FILE_UPLOAD
+usecase "<b>ADM.ADD_EDITOR</b>\nДодати редактора файлу" as ADM.ADD_EDITOR
+usecase "<b>ADM.DELETE_EDITOR</b>\nПрибрати редактора файлу" as ADM.DELETE_EDITOR
+usecase "<b>ADM.FILE_DELETE</b>\nВидалити текстовий \nфайл з системи" as ADM.FILE_DELETE
+
+usecase "<b>ADM.ADMT_TXT_ANNOTATION_CHNG</b>\nЗмінити розмітку даних" as ADM.ADMT_TXT_ANNOTATION_CHNG
+usecase "<b>ADM.ADMT_TXT_ANNOTATION_FINAL</b>\nЗавершити розмітку даних" as ADM.ADMT_TXT_ANNOTATION_FINAL
+
+usecase "<b>ADM.VIEW_HISTORY</b>\nПереглянути історію змін файлу" as ADM.VIEW_HISTORY
+usecase "<b>ADM.VIEW_BRANCH</b>\nПереглянути гілку змін файлу" as ADM.VIEW_BRANCH
+
+ADM.FILE_UPLOAD ..> ADMIN_1 :extends
+ADM.ADD_EDITOR ..> ADMIN_1 :extends
+ADM.DELETE_EDITOR ..> ADMIN_1 :extends
+ADM.FILE_DELETE ..> ADMIN_1 :extends
+
+ADM.ADMT_TXT_ANNOTATION_FINAL ..> ADMIN_2 :extends
+ADM.ADMT_TXT_ANNOTATION_CHNG ..> ADMIN_2 :extends
+
+ADM.VIEW_BRANCH ..> ADMIN_3 :extends
+ADM.VIEW_HISTORY ..> ADMIN_3 :extends
+@enduml
+
 ## Сценарії використання для користувача
 
 - **_ID:_** USER.REG
@@ -105,8 +156,7 @@ end note
 
 - **_УЧАСНИКИ:_** Користувач, Система
 
-- **_ПЕРЕДУМОВИ:_** 1. Користувач не зареєстрований у системі
--                    2. Користувач не зареєстрований у системі
+- **_ПЕРЕДУМОВИ:_** 1. Користувач зареєстрований/не зареєстрований у системі
 
 - **_РЕЗУЛЬТАТ:_** Авторизація в системі
 
@@ -217,18 +267,6 @@ start
 
 @enduml
 
-@startuml
-actor "Editor" as Editor
-
-usecase "<b>EDITOR</b>\nДії редактора" as EDITOR #91FF5B
-
-Editor -l-> EDITOR
-
-usecase "<b>EDITOR.TXT_ANNOTATION_CHNG</b>\nРедагування розмітки даних" as EDITOR.TXT_ANNOTATION_CHNG
-EDITOR.TXT_ANNOTATION_CHNG ..> EDITOR :extends
-
-@enduml
-
 ## Сценарії використання для редактора
 
 - **_ID:_** EDITOR.TXT_ANNOTATION_CHNG
@@ -263,40 +301,6 @@ start
 
     stop;
 
-@enduml
-
-@startuml
-actor "Admin" as Admin
-
-usecase "<b>ADMIN_1</b>\nДефолтні дії адміністратора" as ADMIN_1 #91FF5B
-usecase "<b>ADMIN_2</b>\nДії з розміткою даних" as ADMIN_2 #91FF5B
-usecase "<b>ADMIN_3</b>\nПереглядати зміни" as ADMIN_3 #91FF5B
-
-Admin -l-> ADMIN_3
-Admin -r-> ADMIN_2
-Admin -d-> ADMIN_1
-
-usecase "<b>ADM.FILE_UPLOAD</b>\nЗавантажити текстовий \nфайл в систему" as ADM.FILE_UPLOAD
-usecase "<b>ADM.ADD_EDITOR</b>\nДодати редактора файлу" as ADM.ADD_EDITOR
-usecase "<b>ADM.DELETE_EDITOR</b>\nПрибрати редактора файлу" as ADM.DELETE_EDITOR
-usecase "<b>ADM.FILE_DELETE</b>\nВидалити текстовий \nфайл з системи" as ADM.FILE_DELETE
-
-usecase "<b>ADM.ADMT_TXT_ANNOTATION_CHNG</b>\nЗмінити розмітку даних" as ADM.ADMT_TXT_ANNOTATION_CHNG
-usecase "<b>ADM.ADMT_TXT_ANNOTATION_FINAL</b>\nЗавершити розмітку даних" as ADM.ADMT_TXT_ANNOTATION_FINAL
-
-usecase "<b>ADM.VIEW_HISTORY</b>\nПереглянути історію змін файлу" as ADM.VIEW_HISTORY
-usecase "<b>ADM.VIEW_BRANCH</b>\nПереглянути гілку змін файлу" as ADM.VIEW_BRANCH
-
-ADM.FILE_UPLOAD ..> ADMIN_1 :extends
-ADM.ADD_EDITOR ..> ADMIN_1 :extends
-ADM.DELETE_EDITOR ..> ADMIN_1 :extends
-ADM.FILE_DELETE ..> ADMIN_1 :extends
-
-ADM.ADMT_TXT_ANNOTATION_FINAL ..> ADMIN_2 :extends
-ADM.ADMT_TXT_ANNOTATION_CHNG ..> ADMIN_2 :extends
-
-ADM.VIEW_BRANCH ..> ADMIN_3 :extends
-ADM.VIEW_HISTORY ..> ADMIN_3 :extends
 @enduml
 
 ## Сценарії використання для адміністратора
@@ -375,36 +379,6 @@ stop;
 - **_НАЗВА:_** Прибрати редактора файлу
 
 - **_УЧАСНИКИ:_** Адміністратор, Система, Редактор
-
-- **_ПЕРЕДУМОВИ:_** У файла є редактор
-
-- **_РЕЗУЛЬТАТ:_** Редактор вилучено
-
-- **_ВИКЛЮЧНІ СИТУАЦІЇ:_** -
-
-- **_ОСНОВНИЙ СЦЕНАРІЙ:_**
-
-@startuml
-
-|#FF4F00|Адміністратор|
-start
-:Адміністратор обирає редактора;
-|#FFA500|Адміністратор|
-:Адміністратор надсилає запит на видалення редактора;
-|#FF7518|Система|
-:Система видаляє редактора;
-|Система|
-:Система надсилає редактору повідомлення про його видалення;
-|#FFA500|Редактор|
-:Отримує повідомлення про видалення;
-stop;
-@enduml
-
-- **_ID:_** ADM.DELETE_EDITOR
-
-- **_НАЗВА:_** Прибрати редактора файлу
-
-- **_УЧАСНИКИ:_** ААдміністратор, Система, Редактор
 
 - **_ПЕРЕДУМОВИ:_** У файла є редактор
 
