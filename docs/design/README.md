@@ -12,87 +12,87 @@
 
 @startuml
 
-entity Markdown
-entity Markdown.MarkdownSentiment #ffffff
-entity Markdown.MarkdownNER #ffffff
-entity Markdown.MarkdownSemantic #ffffff
-entity Markdown.ReadinessStatus #ffffff
-entity Markdown.Type #ffffff
-entity Branch #ffffff
+    entity Markdown
+    entity Markdown.MarkdownSentiment #ffffff
+    entity Markdown.MarkdownNER #ffffff
+    entity Markdown.MarkdownSemantic #ffffff
+    entity Markdown.ReadinessStatus #ffffff
+    entity Markdown.Type #ffffff
+    entity Branch #ffffff
 
-entity File
-entity File.AdminName #ffffff
-entity File.Title #ffffff
-entity File.Categories #ffffff
-entity File.CreationDate #ffffff
-
-entity File.EditorsList
-
-entity EditingAccessRequest
-
-entity Admin
-
-entity Editor
-entity Editor.PullRequest #ffffff
-
-entity FileSearchRequest.CategoryFilter #ffffff
-entity FileSearchRequest.FileNameFilter #ffffff
-
-entity User
-entity User.Name #ffffff
-entity User.Password #ffffff
-entity User.Email #ffffff
-entity User.AuthorizationToken #ffffff
-
-entity Commit
-entity Commit.Comment #ffffff
-entity Commit.Date #ffffff
-entity Commit.MarkdownContent #ffffff
-
-File --u-* "3,3" Markdown
-
-Markdown.MarkdownSentiment <-- Markdown
-Markdown.MarkdownNER <-- Markdown
-Markdown.MarkdownSemantic <-- Markdown
-Markdown.Type "1,1" *-u-- Markdown
-Markdown.ReadinessStatus "1,1" *-u-- Markdown
-Branch "1,1" *-u-- Markdown
-
-File "0,*" -- "1,1" Admin
-File  -- File.EditorsList
-File -- Editor
-
-File.AdminName "1,1" *-u-- "1,1" File
-File.Title "1,1" *-u-- "1,1" File
-File.Categories "1,*" *-u-- "1,*" File
-File.CreationDate "1,1" *-u-- "0,*" File
-
-Editor "1,1" -- "1,1" Branch
-Editor "0,2" -- "1,1" File.EditorList
-Commit "1,*" -- "1,1" Branch
-
-EditingAccessRequest  *-u-- "0,*" User
-EditingAccessRequest  *-u-- "0,*" User
-
-EditingAccessRequest -- Admin : "1,1"
-
-Admin  <--  User
-Editor  <--  User
-FileSearchRequest "1,1"  --  User
-User.Name "1,1" *-u-- User
-User.Password "1,1" *-u-- User
-User.Email "1,1" *-u-- User
-User.AuthorizationToken "1,1" *-u--  User
-
-Editor.PullRequest "0,*" *-u-- Editor
-FileSearchRequest.CategoryFilter "1,*" *-u-- FileSearchRequest
-FileSearchRequest.FileNameFilter "0,1" *-u-- FileSearchRequest
-
-
-Commit.Comment "1,1" *-u-- Commit
-Commit.Date "1,1" *-u-- Commit
-Commit.MarkdownContent "1,1" *-u-- Commit
-
+    entity File
+    entity File.AdminName #ffffff
+    entity File.Title #ffffff
+    entity File.Categories #ffffff
+    entity File.CreationDate #ffffff
+    
+    entity File.EditorsList
+    
+    entity EditingAccessRequest
+    
+    entity Admin
+    
+        entity Editor
+    entity Editor.PullRequest #ffffff
+        
+    entity FileSearchRequest.CategoryFilter #ffffff
+    entity FileSearchRequest.FileNameFilter #ffffff
+    
+    entity User
+    entity User.Name #ffffff
+    entity User.Password #ffffff
+    entity User.Email #ffffff
+    entity User.AuthorizationToken #ffffff
+    
+    entity Commit
+    entity Commit.Comment #ffffff
+    entity Commit.Date #ffffff
+    entity Commit.MarkdownContent #ffffff
+    
+    File --u-* "3,3" Markdown
+    
+    Markdown.MarkdownSentiment <-- Markdown
+    Markdown.MarkdownNER <-- Markdown
+    Markdown.MarkdownSemantic <-- Markdown
+    Markdown.Type "1,1" *-u-- Markdown
+    Markdown.ReadinessStatus "1,1" *-u-- Markdown
+    Branch "1,1" *-u-- Markdown
+    
+    File "0,*" -- "1,1" Admin
+    File  -- File.EditorsList
+    File -- Editor
+    
+    File.AdminName "1,1" *-u-- "1,1" File
+    File.Title "1,1" *-u-- "1,1" File
+    File.Categories "1,*" *-u-- "1,*" File
+    File.CreationDate "1,1" *-u-- "0,*" File
+    
+    Editor "1,1" -- "1,1" Branch
+    Editor "0,2" -- "1,1" File.EditorList
+    Commit "1,*" -- "1,1" Branch
+    
+    EditingAccessRequest  *-u-- "0,*" User
+    EditingAccessRequest  *-u-- "0,*" User
+    
+    EditingAccessRequest -- Admin : "1,1"
+    
+    Admin  <--  User
+    Editor  <--  User
+    FileSearchRequest "1,1"  --  User
+    User.Name "1,1" *-u-- User
+    User.Password "1,1" *-u-- User
+    User.Email "1,1" *-u-- User
+    User.AuthorizationToken "1,1" *-u--  User
+    
+    Editor.PullRequest "0,*" *-u-- Editor
+    FileSearchRequest.CategoryFilter "1,*" *-u-- FileSearchRequest
+    FileSearchRequest.FileNameFilter "0,1" *-u-- FileSearchRequest
+    
+    
+    Commit.Comment "1,1" *-u-- Commit
+    Commit.Date "1,1" *-u-- Commit
+    Commit.MarkdownContent "1,1" *-u-- Commit
+    
 @enduml
 
 </center>
