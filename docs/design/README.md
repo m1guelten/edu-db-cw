@@ -60,7 +60,6 @@
     
     File "0,*" -- "1,1" Admin
     File  -- File.EditorsList
-    File -- Editor
     
     File.AdminName "1,1" *-u-- "1,1" File
     File.Title "1,1" *-u-- "1,1" File
