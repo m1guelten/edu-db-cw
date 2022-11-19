@@ -69,9 +69,8 @@
     
     Editor "1,1" -- "1,1" Branch
     Editor "0,2" -- "1,1" File.EditorList
-    Commit "1,*" -- "1,1" Branch
+    Commit "1,*" -- "1,1" Markdown
     
-    EditingAccessRequest  *-u-- "0,*" User
     EditingAccessRequest  *-u-- "0,*" User
     
     EditingAccessRequest -- Admin : "1,1"
