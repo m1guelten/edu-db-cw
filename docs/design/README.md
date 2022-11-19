@@ -104,7 +104,8 @@
     padding: 1em;"
 >
 
-    @startuml
+@startuml
+    
     entity Markdown <<ENTITY>> {
     Type
     Branch
@@ -171,6 +172,7 @@
 @enduml
 
 </center>>
+
 - ER-модель
 - реляційна схема
 
