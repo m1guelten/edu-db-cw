@@ -94,6 +94,83 @@
 @enduml
 
 </center>
+
+## ER - модель
+
+<center style="
+    border-radius:4px;
+    border: 1px solid #cfd7e6;
+    box-shadow: 0 1px 3px 0 rgba(89,105,129,.05), 0 1px 1px 0 rgba(0,0,0,.025);
+    padding: 1em;"
+>
+
+    @startuml
+    entity Markdown <<ENTITY>> {
+    Type
+    Branch
+    ReadinessStatus
+    }
+    entity Markdown.MarkdownSentiment <<ENTITY>> {
+    MarkdownSentiment
+    }
+    entity Markdown.MarkdownNER <<ENTITY>> {
+    MarkdownNER
+    }
+    entity Markdown.MarkdownSemantic <<ENTITY>> {
+    MarkdownSemantic
+    }
+    entity File <<ENTITY>> {
+    AdminName
+    Title
+    Categories
+    CreationDate
+    EditorsList
+    Markdown
+    }
+    entity Admin <<ENTITY>> {
+    }
+    entity Commit <<ENTITY>> {
+    Date
+    MarkdownContent
+    Comment
+    }
+    entity Editor <<ENTITY>> {
+    PullRequest
+    }
+    entity User <<ENTITY>> {
+    Name
+    Password
+    Email
+    AuthorizationToken
+    EditingAccessRequest
+    }
+    entity FileSearchRequest <<ENTITY>> {
+    FileNameFilter
+    CategoryFilter
+    }
+
+    Markdown -- Commit
+    Markdown --> Markdown.MarkdownSentiment
+    Markdown --> Markdown.MarkdownNER
+    Markdown --> Markdown.MarkdownSemantic
+    
+    File -- Markdown
+    File -- Admin
+    
+    Admin -- EditingAccessRequest
+    
+    User --> Admin
+    User --> Editor
+    User -- FileSearchRequest
+    
+    Editor -- EditorList
+    Editor -- Branch
+
+
+
+@enduml
+
+</center>>
 - ER-модель
 - реляційна схема
 
