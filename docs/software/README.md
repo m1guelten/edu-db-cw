@@ -3,7 +3,7 @@
 В рамках проекту розробляється: 
 - ##SQL-скрипт для створення на початкового наповнення бази даних:
 
-
+```sql
 -- MySQL Workbench Forward Engineering
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
@@ -150,10 +150,11 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+```
 
 - ##EER модель
 <p align="center">
-  <img src="">
+  <img src="./anno_model.png">
 </p>
 
 
