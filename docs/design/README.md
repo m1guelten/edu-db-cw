@@ -12,85 +12,80 @@
 
 @startuml
 
-    entity Markdown
-    entity Markdown.MarkdownSentiment #ffffff
-    entity Markdown.MarkdownNER #ffffff
-    entity Markdown.MarkdownSemantic #ffffff
-    entity Markdown.ReadinessStatus #ffffff
-    entity Markdown.Type #ffffff
-    entity Branch #ffffff
+    entity Files #ffffff
+    entity Files.file_id #ffffff
+    entity Files.file_name #ffffff
+    entity Files.admin_id #ffffff
+    entity Files.branch1 #ffffff
+    entity Files.branch2 #ffffff
+    entity Files.original #ffffff
+    entity Files.final_NER #ffffff
+    entity Files.final_SEMANTIC #ffffff
+    entity Files.final_INTENTION #ffffff
+    
+    entity markdown_NER #ffffff
+    entity markdown_SEMANTIC #ffffff
+    entity markdown_INTENTION #ffffff
 
-    entity File
-    entity File.AdminName #ffffff
-    entity File.Title #ffffff
-    entity File.Categories #ffffff
-    entity File.CreationDate #ffffff
+    entity Branch #ffffff
+    entity Branch.branch_id #ffffff
+    entity Branch.editor_id #ffffff
+    entity Branch.NER #ffffff
+    entity Branch.SEMANTIC #ffffff
+    entity Branch.INTENTION #ffffff
+
+    entity User #ffffff
+    entity User.user_id #ffffff
+    entity User.user_name #ffffff
+    entity User.user_email #ffffff
+    entity User.user_psswd #ffffff
+    entity User.isAdmin #ffffff
     
-    entity File.EditorsList
+    entity Markdown #ffffff
+    entity Markdown.markdown_id #ffffff
+    entity Markdown.partials_ready #ffffff
+    entity Markdown.partials_not_ready #ffffff
+    entity Markdown.markdown_status #ffffff
     
-    entity EditingAccessRequest
     
-    entity Admin
+    Files --u* Files.file_id
+    Files --u* Files.file_name
+    Files --u* Files.admin_id
+    Files --u* Files.branch1
+    Files --u* Files.branch2
+    Files --u* Files.original
+    Files --u* Files.final_NER
+    Files --u* Files.final_SEMANTIC
+    Files --u* Files.final_INTENTION
     
-        entity Editor
-    entity Editor.PullRequest #ffffff
+    User --u* User.user_id
+    User --u* User.user_name
+    User --u* User.user_email
+    User --u* User.user_psswd
+    User --u* User.isAdmin
+    
+    Branch --u* Branch.branch_id
+    Branch --u* Branch.editor_id
+    Branch --u* Branch.NER
+    Branch --u* Branch.SEMANTIC
+    Branch --u* Branch.INTENTION
+    
+    Markdown --u* Markdown.markdown_id
+    Markdown --u* Markdown.partials_ready
+    Markdown --u* Markdown.partials_not_ready
+    Markdown --u* Markdown.markdown_status
+    
+    Markdown --> markdown_NER
+    Markdown --> markdown_SENTIMENT
+    Markdown --> markdown_INTENTION
+    
+    
+    
+    Files "*"--"1" User
+    Files "1"--u*"2" Branch
+    Branch "1"--u*"3" Markdown
+    Branch "*"--"1" User
         
-    entity FileSearchRequest.CategoryFilter #ffffff
-    entity FileSearchRequest.FileNameFilter #ffffff
-    
-    entity User
-    entity User.Name #ffffff
-    entity User.Password #ffffff
-    entity User.Email #ffffff
-    entity User.AuthorizationToken #ffffff
-    
-    entity Commit
-    entity Commit.Comment #ffffff
-    entity Commit.Date #ffffff
-    entity Commit.MarkdownContent #ffffff
-    
-    File --u-* "3,3" Markdown
-    
-    Markdown.MarkdownSentiment <-- Markdown
-    Markdown.MarkdownNER <-- Markdown
-    Markdown.MarkdownSemantic <-- Markdown
-    Markdown.Type "1,1" *-u-- Markdown
-    Markdown.ReadinessStatus "1,1" *-u-- Markdown
-    Branch "1,1" *-u-- Markdown
-    
-    File "0,*" -- "1,1" Admin
-    File  -- File.EditorsList
-    
-    File.AdminName "1,1" *-u-- "1,1" File
-    File.Title "1,1" *-u-- "1,1" File
-    File.Categories "1,*" *-u-- "1,*" File
-    File.CreationDate "1,1" *-u-- "0,*" File
-    
-    Editor "1,1" -- "1,1" Branch
-    Editor "0,2" -- "1,1" File.EditorList
-    Commit "1,*" -- "1,1" Markdown
-    
-    EditingAccessRequest  *-u-- "0,*" User
-    
-    EditingAccessRequest -- Admin : "1,1"
-    
-    Admin  <--  User
-    Editor  <--  User
-    FileSearchRequest "1,1"  --  User
-    User.Name "1,1" *-u-- User
-    User.Password "1,1" *-u-- User
-    User.Email "1,1" *-u-- User
-    User.AuthorizationToken "1,1" *-u--  User
-    
-    Editor.PullRequest "0,*" *-u-- Editor
-    FileSearchRequest.CategoryFilter "1,*" *-u-- FileSearchRequest
-    FileSearchRequest.FileNameFilter "0,1" *-u-- FileSearchRequest
-    
-    
-    Commit.Comment "1,1" *-u-- Commit
-    Commit.Date "1,1" *-u-- Commit
-    Commit.MarkdownContent "1,1" *-u-- Commit
-    
 @enduml
 
 </center>
