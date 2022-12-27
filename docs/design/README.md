@@ -101,66 +101,51 @@
 
 @startuml
     
-    entity Markdown <<ENTITY>> {
-    Type
-    Branch
-    ReadinessStatus
-    }
-    entity Markdown.MarkdownSentiment <<ENTITY>> {
-    MarkdownSentiment
-    }
-    entity Markdown.MarkdownNER <<ENTITY>> {
-    MarkdownNER
-    }
-    entity Markdown.MarkdownSemantic <<ENTITY>> {
-    MarkdownSemantic
-    }
-    entity File <<ENTITY>> {
-    AdminName
-    Title
-    Categories
-    CreationDate
-    EditorsList
-    Markdown
-    }
-    entity Admin <<ENTITY>> {
-    }
-    entity Commit <<ENTITY>> {
-    Date
-    MarkdownContent
-    Comment
-    }
-    entity Editor <<ENTITY>> {
-    PullRequest
-    }
-    entity User <<ENTITY>> {
-    Name
-    Password
-    Email
-    AuthorizationToken
-    EditingAccessRequest
-    }
-    entity FileSearchRequest <<ENTITY>> {
-    FileNameFilter
-    CategoryFilter
+    entity FILE <<ENTITY>> {
+    file_id
+    file_name
+    admin_id
+    branch1
+    branch2
+    original
+    final_NER
+    final_SEMANTIC 
+    final_INTENTION
     }
 
-    Markdown -- Commit
-    Markdown --> Markdown.MarkdownSentiment
-    Markdown --> Markdown.MarkdownNER
-    Markdown --> Markdown.MarkdownSemantic
+    entity USER <<ENTITY>>{
+    user_id
+    user_name
+    user_email
+    user_psswd
+    isAdmin
+    }
+
+    entity BRANCH <<ENTITY>> {
+    Branch.branch_id
+    editor_id
+    NER
+    SEMANTIC
+    INTENTION
+    }
     
-    File -- Markdown
-    File -- Admin
+    entity MARKDOWN <<ENTITY>> {
+    Markdown.markdown_id
+    partials_ready
+    partials_not_ready
+    markdown_status
+    }
     
-    Admin -- EditingAccessRequest
+    entity MARKDOWN_NER <<ENTITY>>
+    entity MARKDOWN_SEMANTIC <<ENTITY>>
+    entity MARKDOWN_INTENTION <<ENTITY>>
     
-    User --> Admin
-    User --> Editor
-    User -- FileSearchRequest
-    
-    Editor -- EditorList
-    Editor -- Branch
+    USER -- FILE
+    FILE -- BRANCH
+    BRANCH -- MARKDOWN
+    MARKDOWN_NER <-- MARKDOWN
+    MARKDOWN_SEMANTIC <-- MARKDOWN
+    MARKDOWN_INTENTION <-- MARKDOWN
 
 
 
