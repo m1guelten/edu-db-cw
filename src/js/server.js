@@ -11,7 +11,14 @@ app.get('/', (req, res) => {
   db.query('SELECT * FROM files;', (err, files) => {
     if (err) {
       console.log(err);
+      res.status(500).send(err);
       return;
+    }
+
+    if(files.length == 0) {
+      res.status(201).json({
+        message: "Table is empty"
+      });
     }
 
     res.status(201).json({ data: files });
@@ -24,14 +31,18 @@ app.get('/:id', (req, res) => {
   db.query(`SELECT * FROM files WHERE file_id = ${id}`, (err, file) => {
     if (err) {
       console.log(err);
+      res.status(500).send(err);
       return;
     }
 
-    if (!file) {
+    if (file.length == 0) {
       console.log('There is no file with such id');
+      res.status(404).json({
+        message: 'There is no file with such id'
+      })
       return;
     }
-
+    console.log(file);
     res.status(201).json({ data: file });
   });
 })
@@ -59,16 +70,20 @@ app.post('/', (req, res) => {
     final_SEMANTIC &&
     final_INTENTION
   ) {
-    try {
-      db.promise().query(`INSERT INTO files(file_id, file_name, admin_id, branch1, branch2, original, final_NER, final_SEMANTIC, final_INTENTION) VALUES("${file_id}", "${file_name}", "${admin_id}", "${branch1}", "${branch2}", "${original}", "${final_NER}", "${final_SEMANTIC}", "${final_INTENTION}")`);
-    res.status(201).send({msg: 'Created User' });
-    } catch (err) {
+    db.query(`INSERT INTO files(file_id, file_name, admin_id, branch1, branch2, original, final_NER, final_SEMANTIC, final_INTENTION) VALUES("${file_id}", "${file_name}", "${admin_id}", "${branch1}", "${branch2}", "${original}", "${final_NER}", "${final_SEMANTIC}", "${final_INTENTION}")`, (err) => {
       console.log(err);
+      res.status(500).json({
+        error: err
+      })
       return;
-    }
+    });
+
+    res.status(201).send({msg: 'Created User' });
   } else {
     console.log('Wrong data provided');
-    res.send('Wrong data provided');
+    res.json({
+      error: 'Wrong data provided'
+    });
   }
 })
 
@@ -77,6 +92,9 @@ app.put('/:id', (req, res) => {
   db.query(`SELECT * FROM files WHERE file_id = ${id}`, (err, [file]) => {
     if (err) {
       console.log(err);
+      res.status(500).json({
+        error: err
+      })
       return;
     }
     
@@ -88,9 +106,7 @@ app.put('/:id', (req, res) => {
 
     let query = "UPDATE files SET ";
 
-    console.log(req.body);
     for (key of Object.keys(file)) {
-      console.log(key);
       if (req.body[key]) {
         query += `${key} = '${req.body[key]}'`;
       }
@@ -113,10 +129,13 @@ app.delete('/:id', (req, res) => {
   db.query(`SELECT * FROM files WHERE file_id = ${id}`, (err, file) => {
     if (err) {
       console.log(err);
+      res.status(500).json({
+        error: err
+      })
       return;
     }
     if (file.length == 0) {
-      res.json({ error: "There is no such user" });
+      res.status(404).json({ error: "There is no such user" });
       return;
     }
 
@@ -126,7 +145,7 @@ app.delete('/:id', (req, res) => {
         res.status(404).json({ error: err });
         return;
       }
-      res.json({ message: `User ${id} deleted` });
+      res.status(201).json({ message: `User ${id} deleted` });
     })
   })
 })
