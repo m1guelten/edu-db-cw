@@ -1,7 +1,7 @@
 # Реалізація інформаційного та програмного забезпечення
 
 В рамках проекту розробляється: 
-##SQL-скрипт для створення на початкового наповнення бази даних:
+## SQL-скрипт для створення на початкового наповнення бази даних:
 
 ```sql
 -- MySQL Workbench Forward Engineering
@@ -152,15 +152,15 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 ```
 
-##EER модель
+## EER модель
 <p align="center">
   <img src="./anno_model.png">
 </p>
 
 
-##RESTfull сервіс для управління даними
+## RESTfull сервіс для управління даними
  
-###Підключення до бази даних
+### Підключення до бази даних
 ```js
   const mysql = require('mysql2');
 
@@ -172,7 +172,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
   })  
 ```
   
-###express.js-сервер
+### express.js-сервер
 
 ```js
   const express = require('express');
