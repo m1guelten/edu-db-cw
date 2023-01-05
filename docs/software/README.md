@@ -161,7 +161,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 ##RESTfull сервіс для управління даними
  
 ###Підключення до бази даних
-
+```js
   const mysql = require('mysql2');
 
   module.exports = mysql.createConnection({
@@ -170,9 +170,11 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
     password: 'password',
     database: 'mydb'
   })  
+```
   
 ###express.js-сервер
 
+```js
   const express = require('express');
   const db = require('./database');
   const bodyParser = require('body-parser');
@@ -328,3 +330,4 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
   app.listen(port, () => {
     console.log(`Server now listening on port ${port}`);
   })
+```
